@@ -114,7 +114,7 @@ public class Maze{
         if(animate){
             clearTerminal();
             System.out.println(this);
-            wait(100);
+            wait(20);
         }
 
         //COMPLETE SOLVE
@@ -161,7 +161,7 @@ public class Maze{
           }
           col++;
 
-          //can't move so and not solved backtrack, replace @
+          //can't move and not solved so backtrack, replace @
           if (maze[row][col] == '@'){
             maze[row][col] = '.';
 
