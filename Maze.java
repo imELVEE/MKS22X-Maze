@@ -91,7 +91,7 @@ public class Maze{
             maze[s[0]][s[1]] = ' ';
             //and start solving at the location of the s.
             //return solve(???,???);
-            return solve(s[0],s[1]);
+            return solve(s[0],s[1],0);
 
     }
 
@@ -108,27 +108,89 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int count){ //you can add more parameters since this is private
 
         //automatic animation! You are welcome.
         if(animate){
             clearTerminal();
             System.out.println(this);
-            wait(20);
+            wait(100);
         }
 
         //COMPLETE SOLVE
-        if (maze[row][col] == 'E'){
-          return 1;
-        }
-        else if (maze[row][col] == '#'){
 
+        //place foot down
+        if (maze[row][col] == ' '){
+          maze[row][col] = '@';
+        }
+
+          //move in 4 directions and end if at end
+          row--;
+          if (maze[row][col] == ' '){
+            return solve(row,col,count+1);
+          }
+          else if (maze[row][col] == 'E'){
+            return count + 1;
+          }
+          row++;
+
+          col++;
+          if (maze[row][col] == ' '){
+            return solve(row,col,count+1);
+          }
+          else if (maze[row][col] == 'E'){
+            return count + 1;
+          }
+          col--;
+
+          row++;
+          if (maze[row][col] == ' '){
+            return solve(row,col,count+1);
+          }
+          else if (maze[row][col] == 'E'){
+            return count + 1;
+          }
+          row--;
+
+          col--;
+          if (maze[row][col] == ' '){
+            return solve(row,col,count+1);
+          }
+          else if (maze[row][col] == 'E'){
+            return count + 1;
+          }
+          col++;
+
+          //can't move so and not solved backtrack, replace @
+          if (maze[row][col] == '@'){
+            maze[row][col] = '.';
+
+            //backtrack in 4 directions
+            row--;
+            if (maze[row][col] == '@'){
+              return solve(row,col,count-1);
+            }
+            row++;
+
+            col++;
+            if (maze[row][col] == '@'){
+              return solve(row,col,count-1);
+            }
+            col--;
+
+            row++;
+            if (maze[row][col] == '@'){
+              return solve(row,col,count-1);
+            }
+            row--;
+
+            col--;
+            if (maze[row][col] == '@'){
+              return solve(row,col,count-1);
+            }
+            col++;
         }
 
         return -1; //so it compiles
     }
-
-  //  private int[] nearestAt(int row, int col){
-  //    maze[row]
-    //}
 }
