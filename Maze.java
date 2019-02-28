@@ -77,13 +77,22 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
+            int[] s = new int[2];
             //find the location of the S.
-
+            for (int r = 0 ; r < maze.length ; r++){
+              for (int c = 0 ; c < maze[r].length ; c++){
+                if (maze[r][c] == 'S'){
+                  s[0] = r;
+                  s[1] = c;
+                }
+              }
+            }
             //erase the S
-
+            maze[s[0]][s[1]] = ' ';
             //and start solving at the location of the s.
             //return solve(???,???);
-            return -1;
+            return solve(s[0],s[1]);
+
     }
 
     /*
@@ -109,7 +118,17 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
+        if (maze[row][col] == 'E'){
+          return 1;
+        }
+        else if (maze[row][col] == '#'){
+
+        }
+
         return -1; //so it compiles
     }
 
+  //  private int[] nearestAt(int row, int col){
+  //    maze[row]
+    //}
 }
