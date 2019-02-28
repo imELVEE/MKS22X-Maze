@@ -18,10 +18,14 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+      boolean s1 = false; 
+      boolean e1 = false;
+
       animate = false;
       File text = new File(filename);
       Scanner inf = new Scanner(text);
 
+      //find size of maze
       int rows = 0;
       int cols = 0;
       while(inf.hasNextLine()){
@@ -30,6 +34,7 @@ public class Maze{
           cols = line.length();
       }
 
+      //create maze
       inf = new Scanner(text);
       maze = new char[rows][cols];
       int r = 0;
@@ -37,8 +42,19 @@ public class Maze{
         String line = inf.nextLine();
         for (int c = 0 ; c < line.length() ; c++){
           maze[r][c] = line.charAt(c);
+          if (maze[r][c] == 'S'){
+            s1 = true;
+          }
+          if (maze[r][c] == 'E'){
+            e1 = true;
+          }
         }
         r++;
+      }
+
+      //if the maze is Invalid
+      if (!s1 || !e1){
+        throw new FileNotFoundException("Maze does not have a start or end");
       }
 
     }
